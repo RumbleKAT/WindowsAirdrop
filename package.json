@@ -1,0 +1,17 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "songmyeongjin",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^4.0.0",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "node-powershell": "^3.3.1"
+  }
+}
