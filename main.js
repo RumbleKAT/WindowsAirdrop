@@ -1,5 +1,5 @@
 const shell = require('node-powershell');
-var total;
+var currentIP;
 const regExp = /([A-Za-z1-9.:])\w+/g;
 
 let ps = new shell({
@@ -8,19 +8,24 @@ let ps = new shell({
   });
 
 function findIP(){
-    console.log("!!")
-    
-    ps.addCommand('ipconfig')
-    ps.invoke()
-    .then(output => {
-        total = output
-        matches_arr = total.match(regExp);
-        //reducer ... slice match_arr
+    return new Promise((resolve) =>{
+        ps.addCommand('ipconfig')
+        ps.invoke()
+        .then(output => {
+            let total_arr = output.match(regExp)
+            let idx = total_arr.findIndex((element)=> element === 'IPv4')
+            currentIP = total_arr.filter((element,index) => index > idx && index <= idx + 4).join("");
+            resolve(currentIP);
+        })
+        .catch(err => {
+        console.log(err);
+        ps.dispose();
+        });
     })
-    .catch(err => {
-    console.log(err);
-    ps.dispose();
-    });
 }
 
-findIP();
+function InitPage(param){
+    document.getElementById('content').innerText = param;
+}
+
+findIP().then((result)=>InitPage(result));

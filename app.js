@@ -3,6 +3,9 @@ const express = require('express')
 const http = require('http')
 const port = 8080;
 const shell = require('node-powershell');
+require('electron-reload')(__dirname,{
+    electron: require(`${__dirname}/node_modules/electron`)
+});
 
 let ps = new shell({
     executionPolicy: 'Bypass',
@@ -15,16 +18,7 @@ server.get('/upload',(req,res)=>{
     res.end('<h1>Good!</h1')
 })
 
-http.createServer(server).listen(port,(res)=>{
-    ps.addCommand('ipconfig')
-    ps.invoke()
-    .then(output => {
-    console.log(output);
-    })
-    .catch(err => {
-    console.log(err);
-    ps.dispose();
-    });
+http.createServer(server).listen(port,()=>{
     console.log('localhost:8080 is running...')
 })
 
