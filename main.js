@@ -14,7 +14,7 @@ function findIP(){
         .then(output => {
             let total_arr = output.match(regExp)
             let idx = total_arr.findIndex((element)=> element === 'IPv4')
-            currentIP = total_arr.filter((element,index) => index > idx && index <= idx + 4).join("");
+            currentIP = 'http://' + total_arr.filter((element,index) => index > idx && index <= idx + 4).join("");
             resolve(currentIP);
         })
         .catch(err => {
@@ -25,7 +25,7 @@ function findIP(){
 }
 
 function InitPage(param){
-    document.getElementById('content').innerText = param;
+    document.getElementById('content').innerText = param
 }
 
 findIP().then((result)=>InitPage(result));
