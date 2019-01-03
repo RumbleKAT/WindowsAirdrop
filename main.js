@@ -1,5 +1,7 @@
 const shell = require('node-powershell');
 var currentIP;
+let $ = require('jquery')
+console.log($('#shortenUrl'));
 const regExp = /([A-Za-z1-9.:])\w+/g;
 
 let ps = new shell({
@@ -14,7 +16,7 @@ function findIP(){
         .then(output => {
             let total_arr = output.match(regExp)
             let idx = total_arr.findIndex((element)=> element === 'IPv4')
-            currentIP = 'http://' + total_arr.filter((element,index) => index > idx && index <= idx + 4).join("");
+            currentIP = 'http://' + total_arr.filter((element,index) => index > idx && index <= idx + 4).join("")+":8080";
             resolve(currentIP);
         })
         .catch(err => {

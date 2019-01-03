@@ -7,6 +7,9 @@ const client = require('./secret_keys')
 const request = require('request')
 
 server.use(express.json())
+server.use(express.static('public'))
+
+
 server.get('/upload',(req,res)=>{
     res.end('<h1>Good!</h1')
 })

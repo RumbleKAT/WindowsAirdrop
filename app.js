@@ -6,10 +6,11 @@ require('electron-reload')(__dirname,{
 
 let win 
 function createWindow(){
-    win = new BrowserWindow({width: 800, height: 600, show: false , backgroundColor : "#fff"})
+    win = new BrowserWindow({width: 800, height: 600 , backgroundColor : "#fff", titleBarStyle : 'hiddenInset'})
     win.loadURL(`file://${__dirname}/index.html`)
     win.webContents.openDevTools()
-    
+    win.setMenu(null)
+
     win.once('ready-to-show', ()=>{
         win.show()
     })
