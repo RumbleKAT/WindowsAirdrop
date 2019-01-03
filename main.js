@@ -24,8 +24,30 @@ function findIP(){
     })
 }
 
+function ajax(url){
+    return new Promise((resolve)=>{
+        var req = new XMLHttpRequest();
+        req.open('POST','http://localhost:8080/shortenUrl',false)
+        req.setRequestHeader('Content-Type','application/json;charset=UTF=8');
+        req.onreadystatechange = function(evt){
+            if(req.readyState === 4){
+                if(req.status === 200){
+                    resolve(JSON.parse(JSON.parse(req.responseText)));
+                }
+            }
+        }
+        req.send(JSON.stringify({
+            'url' : url
+        }))
+    });
+}
+
 function InitPage(param){
-    document.getElementById('content').innerText = param
+    document.getElementById('content').innerText = param        
+    ajax(param).then((result)=>{
+        console.log(result);
+        document.getElementById('shortenUrl').innerText = result.result.url;                
+    })
 }
 
 findIP().then((result)=>InitPage(result));
