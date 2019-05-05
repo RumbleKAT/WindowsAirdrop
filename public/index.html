@@ -7,9 +7,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Good!</h1>
-    <!-- 
-        Moblie Page
-     -->   
+    <h1>Good!bb</h1>
+    <input type="button" id = "btn_upload" name = "upload btn">
+        upload
+    </input>
+    <input type="button" id = "btn_download" name = "download btn">
+        download
+    </input>
+
+    <div id = "div_upload">
+        <form action="upload" method="post" enctype="multipart/form-data">
+            <input type="file" name ="userfile"/>
+            <input type= "submit"/>
+        </form>
+    </div>
+    
+    <div id = "div_download">
+        <a href="./files/1.png" download="upload_1">
+            <img src="./files/1.png" alt="W3Schools" width="104" height="142">
+        </a>
+    </div>
+    
+    <style>
+        div{
+            border-top : gray 0.2em;
+            border-bottom: gray 0.2em;
+        }
+    </style>
+
+    <script>
+        let $ = document;
+        let btn_upload = $.getElementById('#div_upload');
+        let btn_download = $.getElementById('#div_download');
+
+        btn_upload.style.display = 'none';
+        btn_download.style.display = 'none';
+
+        let status = {
+            upload : false,
+            download : false
+        };
+
+        btn_upload.addEventListener('click',()=>{
+            if(!status.upload){
+                status.upload = true;
+                btn_upload.style.display = 'block'; 
+            }else{
+                status.upload = false;
+                btn_upload.style.display = 'none'; 
+            }
+        });
+
+
+        btn_download.addEventListener('click',()=>{
+            if(!status.download){
+                status.download = true;
+                btn_download.style.display = 'block'; 
+            }else{
+                status.download = false;
+                btn_download.style.display = 'none'; 
+            }
+        });
+
+    </script>
 </body>
 </html>

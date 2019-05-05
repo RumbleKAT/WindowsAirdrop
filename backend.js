@@ -6,13 +6,31 @@ const server = express()
 const client = require('./secret_keys')
 const request = require('request')
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().valueOf() + path.extname(file.originalname));
+    }
+  })
+const upload = multer({ dest: 'uploads/', storage: storage});
+
 server.use(express.json())
 server.use(express.static('public'))
+server.use('/files', express.static('uploads'));
 
 
 server.get('/upload',(req,res)=>{
-    res.end('<h1>Good!</h1')
+    res.render('index.html');
 })
+
+server.post('/upload', upload.single('userfile'), function(req, res){
+    let fullUrl = req.protocol + '://' + req.get('host');
+    console.log('업로드 성공!...');
+    res.redirect(fullUrl);
+});
 
 server.post('/shortenUrl',(req,res)=>{
     let query = encodeURI(req.body.url)
