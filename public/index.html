@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1>Good!bb</h1>
-    <input type="button" id = "btn_upload" name = "upload btn">
+    <button id = "btn_upload" name = "upload btn">
         upload
-    </input>
-    <input type="button" id = "btn_download" name = "download btn">
+    </button>
+    <button type="button" id = "btn_download" name = "download btn">
         download
-    </input>
+    </button>
 
     <div id = "div_upload">
         <form action="upload" method="post" enctype="multipart/form-data">
@@ -36,37 +36,54 @@
     </style>
 
     <script>
-        let $ = document;
-        let btn_upload = $.getElementById('#div_upload');
-        let btn_download = $.getElementById('#div_download');
+        let btn_upload = document.querySelector('#btn_upload');
+        let btn_download = document.querySelector('#btn_download');
 
-        btn_upload.style.display = 'none';
+        btn_upload.style.display = 'block';
         btn_download.style.display = 'none';
 
         let status = {
-            upload : false,
+            upload : true,
             download : false
         };
 
-        btn_upload.addEventListener('click',()=>{
-            if(!status.upload){
-                status.upload = true;
-                btn_upload.style.display = 'block'; 
+        
+
+        function set_btn_state(check,btn_type){
+            if(btn_type === 'btn_upload'){
+                if(check === true){
+                    status.upload = false;
+                    status.download = true;
+                    btn_upload.style.display = 'none';
+                    btn_download.style.display = 'block'; 
+                }else{
+                    status.upload = true;
+                    status.download = false;
+                    btn_upload.style.display = 'block'; 
+                    btn_download.style.display = 'none'; 
+                }
             }else{
-                status.upload = false;
-                btn_upload.style.display = 'none'; 
+                if(check === true){
+                    status.upload = true;
+                    status.download = false;
+                    btn_upload.style.display = 'block'; 
+                    btn_download.style.display = 'none'; 
+                }else{
+                    status.upload = false;
+                    status.download = true;
+                    btn_upload.style.display = 'none';
+                    btn_download.style.display = 'block';  
+                }
             }
+        }
+
+        btn_upload.addEventListener('click',()=>{
+            set_btn_state(status.upload, 'btn_upload');
         });
 
 
         btn_download.addEventListener('click',()=>{
-            if(!status.download){
-                status.download = true;
-                btn_download.style.display = 'block'; 
-            }else{
-                status.download = false;
-                btn_download.style.display = 'none'; 
-            }
+            set_btn_state(status.download, 'btn_download');
         });
 
     </script>
