@@ -9,7 +9,7 @@
   "author": "songmyeongjin",
   "license": "ISC",
   "dependencies": {
-    "electron": "^4.2.12",
+    "electron": "^10.1.2",
     "electron-reload": "^1.4.0",
     "express": "^4.16.4",
     "http": "0.0.0",
